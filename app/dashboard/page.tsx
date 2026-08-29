@@ -1,3 +1,4 @@
+/*
 import { getCurrentBusiness } from "@/lib/dal";
 
 // Placeholder — the real weekly suggestion cards get built in a later
@@ -11,3 +12,4 @@ export default async function DashboardPage() {
     </main>
   );
 }
+*/

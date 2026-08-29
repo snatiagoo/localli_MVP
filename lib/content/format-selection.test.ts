@@ -89,21 +89,95 @@ describe("selectFormats", () => {
   //    and goal: "more_brand_awareness" (so video_b's goal tag matches) —
   //    how many formats come back, and which ones?
 
+  
+  it("suggests any comfort level to confident_video businesses", () => {
+    const result = selectFormats({
+      goal: "more_brand_awareness",
+      contentComfortLevel: "confident_video",
+      availableFormats: FORMATS,
+      recentlyUsedFormatIds: [],
+      count: 4, // also tests for inactive format not showing
+    });
+
+    expect(result.map((f) => f.id)).toEqual(["photo_a", "video_a", "video_b"]);
+  });
+
+
   // 2. Goal filtering: a format tagged for a goal the business does NOT
   //    have should be excluded, even if comfort level would allow it.
   //    (Hint: try goal: "more_reservations" — which formats have a
   //    goalTags list that does NOT include it and is NOT empty?)
 
+  it("suggests only universal and matchign goal formats", () => {
+    const result = selectFormats({
+      goal: "more_reservations",
+      contentComfortLevel: "confident_video",
+      availableFormats: FORMATS,
+      recentlyUsedFormatIds: [],
+      count: 4,
+    });
+
+    expect(result.map((f) => f.id)).toEqual(["photo_a", "video_a"]);
+  });
+  
+
   // 3. excludeFormatIds (used by the regenerate feature later): passing a
   //    format's id in excludeFormatIds should remove exactly that format
   //    from the results, even if it would otherwise be the top choice.
+
+  it("should exclude formats whose id is in excludeFormatIds", () => {
+    const result = selectFormats({
+      goal: "more_reservations",
+      contentComfortLevel: "confident_video",
+      availableFormats: FORMATS,
+      recentlyUsedFormatIds: [],
+      count: 4,
+      excludeFormatIds: ["photo_a"]
+    });
+
+    expect(result.map((f) => f.id)).toEqual(["video_a"]);
+  });
 
   // 4. The "degraded pool" case: ask for more formats (count) than are
   //    actually eligible given the filters. The function should return
   //    however many ARE eligible — fewer than requested — not throw an
   //    error or return something that violates comfort level.
 
+  it("should exclude formats whose id is in excludeFormatIds", () => {
+    const result = selectFormats({
+      goal: "more_brand_awareness", // specific goal, so only that and universal
+      contentComfortLevel: "photo_only",
+      availableFormats: FORMATS,
+      recentlyUsedFormatIds: [],
+      count: 3, // we allow three but there is only 1 with photo only
+    });
+
+    expect(result.map((f) => f.id)).toEqual(["photo_a"]);
+  });
+
   // 5. Determinism: call selectFormats with the exact same input object
   //    twice and confirm both results are identical. (This guards against
   //    any accidental randomness creeping into the algorithm later.)
+
+  it("should exclude formats whose id is in excludeFormatIds", () => {
+    const result1 = selectFormats({
+      goal: "more_brand_awareness", // specific goal, so only that and universal
+      contentComfortLevel: "photo_only",
+      availableFormats: FORMATS,
+      recentlyUsedFormatIds: [],
+      count: 3, // we allow three but there is only 1 with photo only
+    });
+
+    const result2 = selectFormats({
+      goal: "more_brand_awareness", // specific goal, so only that and universal
+      contentComfortLevel: "photo_only",
+      availableFormats: FORMATS,
+      recentlyUsedFormatIds: [],
+      count: 3, // we allow three but there is only 1 with photo only
+    });
+
+    expect(result1).toEqual(result2);
+  });
+
+
 });

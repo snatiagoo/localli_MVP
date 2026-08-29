@@ -1,3 +1,4 @@
+/*
 import { redirect } from "next/navigation";
 import { getCurrentBusiness } from "@/lib/dal";
 
@@ -8,3 +9,4 @@ export default async function OnboardingLayout({ children }: LayoutProps<"/onboa
   }
   return <>{children}</>;
 }
+*/

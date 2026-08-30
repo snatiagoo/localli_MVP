@@ -143,7 +143,7 @@ describe("selectFormats", () => {
   //    however many ARE eligible — fewer than requested — not throw an
   //    error or return something that violates comfort level.
 
-  it("should exclude formats whose id is in excludeFormatIds", () => {
+  it("should return less than count if not enough possible formats", () => {
     const result = selectFormats({
       goal: "more_brand_awareness", // specific goal, so only that and universal
       contentComfortLevel: "photo_only",
@@ -159,7 +159,7 @@ describe("selectFormats", () => {
   //    twice and confirm both results are identical. (This guards against
   //    any accidental randomness creeping into the algorithm later.)
 
-  it("should exclude formats whose id is in excludeFormatIds", () => {
+  it("both results shoudl be identical if called with same input", () => {
     const result1 = selectFormats({
       goal: "more_brand_awareness", // specific goal, so only that and universal
       contentComfortLevel: "photo_only",

@@ -5,6 +5,12 @@ import { eq } from "drizzle-orm";
 import { db } from "./db";
 import { businesses } from "./db/schema";
 
+// here we have functions to handle access to certain things
+// for example verifySession to see if signed in,
+// or require onboarded business so that people who havent been onboarded 
+// cant see dashboard for example
+
+
 // WORKED — the base check: is anyone logged in at all?
 //
 // `cache(...)` from React deduplicates calls: if verifySession() is called
@@ -31,7 +37,9 @@ export const verifySession = cache(async () => {
 // 3. Return the business, or `null` if it wasn't found (a signed-in user who
 //    hasn't started onboarding yet has no business row at all).
 export const getCurrentBusiness = cache(async () => {
-  throw new Error("not implemented yet");
+  const { userId } = await verifySession();
+  const [business] = await db.select().from(businesses).where(eq(businesses.clerkUserId, userId))
+  return business ? business : null;
 });
 
 // TODO — requireOnboardedBusiness(): the real "is this user allowed on the
@@ -42,5 +50,9 @@ export const getCurrentBusiness = cache(async () => {
 //    still empty, call `redirect("/onboarding")` (imported at the top).
 // 3. Otherwise, return the business.
 export async function requireOnboardedBusiness() {
-  throw new Error("not implemented yet");
+  const res = await getCurrentBusiness();
+  if(res === null || !res.onboardingCompletedAt){
+    redirect("/onboarding")
+  }
+  return res;
 }

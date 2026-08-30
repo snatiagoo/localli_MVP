@@ -23,4 +23,8 @@ const goalKeys = Object.keys(GOAL_LABELS) as [Goal, ...Goal[]];
 //   - cuisine: optional string (no minimum length needed)
 //   - goal: use `z.enum(goalKeys)` (the array built above) — this checks
 //     the value is EXACTLY one of the 5 real goal strings, nothing else
-export const basicsSchema = z.object({});
+export const basicsSchema = z.object({
+    name: z.string().min(1),
+    cuisine: z.string().optional(),
+    goal: z.enum(goalKeys),
+});

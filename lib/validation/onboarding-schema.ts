@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { GOAL_LABELS, type Goal } from "@/lib/content/goals";
+import { COMFORT_LEVEL_LABELS} from "../content/comfort-levels";
+import type { ComfortLevel } from "@/lib/db/schema";
 
 // WORKED — z.enum() needs a non-empty tuple of exact string values, not a
 // plain string[]. Rather than typing the 5 goal values out a second time
@@ -9,6 +11,7 @@ import { GOAL_LABELS, type Goal } from "@/lib/content/goals";
 // this array is non-empty" — Object.keys() alone only returns a plain
 // string[], which z.enum() won't accept.
 const goalKeys = Object.keys(GOAL_LABELS) as [Goal, ...Goal[]];
+const contentComfortLevels = Object.keys(COMFORT_LEVEL_LABELS) as [ComfortLevel, ...ComfortLevel[]];
 
 // TODO — build the schema for the "basics" onboarding step (business name,
 // cuisine, goal). Docs: https://zod.dev/api — see #objects, #strings,
@@ -28,3 +31,33 @@ export const basicsSchema = z.object({
     cuisine: z.string().optional(),
     goal: z.enum(goalKeys),
 });
+
+export const menuSchema = z.object({
+    signatureDishes: z.array(z.string().min(1)),
+    specials: z.array(z.object({
+        label: z.string(),
+        description: z.string().optional()
+    }))
+})
+
+export const audienceSchema = z.object({
+    targetAudience: z.string().optional(),
+    brandTone: z.string().optional()
+})
+
+export const logisticSchema = z.object({
+    contentComfortLevel: z.enum(contentComfortLevels),
+    postingFrequency: z.coerce.number().int().min(1).max(3),
+    socialHandles: z.object({
+        instagram: z.string().optional(),
+        tiktok: z.string().optional(),
+        facebook: z.string().optional(),
+    }),
+    address: z.string().optional(),
+    phone: z.string().optional(),
+})
+
+
+
+
+

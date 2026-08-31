@@ -42,7 +42,7 @@ export async function saveBasics(prevState: BasicsFormState, formData: FormData)
 
         // UPSERT
 
-        redirect("onboarding/menu");
+        redirect("/onboarding/menu");
 
     }else{
         return z.treeifyError(validated.error);

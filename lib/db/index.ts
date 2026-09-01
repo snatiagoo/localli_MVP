@@ -7,6 +7,6 @@ import * as schema from "./schema";
 // what makes it work in Vercel's serverless functions without connection
 // pooling setup. `drizzle(sql, { schema })` wraps that connection with the
 // typed query builder that reads our table definitions from schema.ts.
-const sql = neon(process.env.DATABASE_URL!);
+const sql = neon(process.env.LOCALLI_STORAGE_DATABASE_URL!);
 
 export const db = drizzle(sql, { schema });

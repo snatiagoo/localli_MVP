@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import z from "zod";
 
 
-type MenuFormState = ReturnType<typeof z.treeifyError>;
+export type MenuFormState = ReturnType<typeof z.treeifyError<z.infer<typeof menuSchema>>>;
 
 export async function saveMenu(prevState: MenuFormState, formData: FormData){
     const { userId } = await verifySession();

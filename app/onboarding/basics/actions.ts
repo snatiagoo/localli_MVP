@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 import z from "zod";
 
-type BasicsFormState = ReturnType<typeof z.treeifyError>; 
+export type BasicsFormState = ReturnType<typeof z.treeifyError<z.infer<typeof basicsSchema>>>;
     // it will always just return an error or nothing, 
     // but in the second case we cant see it as we redirect before it
 

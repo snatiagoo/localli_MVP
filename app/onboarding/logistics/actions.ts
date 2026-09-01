@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import z from "zod";
 
 
-type LogisticFormState = ReturnType<typeof z.treeifyError>;
+export type LogisticFormState = ReturnType<typeof z.treeifyError<z.infer<typeof logisticSchema>>>;
 
 export async function saveLogistics(prevState: LogisticFormState, formData: FormData){
 

@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import z from "zod";
 
 
-type AudienceFormState = ReturnType<typeof z.treeifyError>;
+export type AudienceFormState = ReturnType<typeof z.treeifyError<z.infer<typeof audienceSchema>>>;
 
 export async function saveAudience(prevState: AudienceFormState, formData: FormData){
 

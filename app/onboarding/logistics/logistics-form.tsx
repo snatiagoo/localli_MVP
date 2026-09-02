@@ -86,6 +86,7 @@ export function LogisticsForm({
           placeholder="Instagram"
           defaultValue={defaultValues.socialHandles?.instagram ?? ""}
           className="rounded-md border border-gray-300 px-3 py-2"
+          
         />
         <input
           name="tiktokHandle"

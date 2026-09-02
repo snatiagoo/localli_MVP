@@ -5,6 +5,7 @@ export default function OnboardingPage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-8">
       <p>Aquí irá el proceso de configuración de tu negocio.</p>
+      <p>Recuerda que tienes que mejorar la interfaz aqui, esta muy simple</p>
     </main>
   );
 }

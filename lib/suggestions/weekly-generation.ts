@@ -83,7 +83,7 @@ export async function getRecentlyUsedFormatIds(businessId: string): Promise<stri
 
 // The narrow slice of a business row this function actually needs — same
 // idea as ContentFormatDef in format-selection.ts, kept minimal on purpose.
-type BusinessForGeneration = Pick<
+export type BusinessForGeneration = Pick<
   typeof businesses.$inferSelect,
   "id" | "category" | "goal" | "contentComfortLevel" | "postingFrequency"
 >;

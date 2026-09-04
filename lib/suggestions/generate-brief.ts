@@ -10,7 +10,7 @@ const client = new Anthropic();
 
 
 
-const creativeBrief = z.object({
+export const creativeBrief = z.object({
     shotList: z.array(z.object({
         order: z.number(),
         description: z.string(),
@@ -25,6 +25,7 @@ const creativeBrief = z.object({
         })))
     })),
     caption: z.string(),
+    targetDurationSeconds: z.optional(z.number())
 })
 
 async function fetchContentFormat(id: string){
@@ -36,7 +37,7 @@ async function fetchContentFormat(id: string){
 
 
 
-async function mainFunction(id: string, business:
+export async function mainFunction(id: string, business:
     Pick<typeof businesses.$inferSelect, "name" | "category" | "goal" | "cuisine" | "signatureDishes" | "specials">){
 
     const rows = await fetchContentFormat(id);
@@ -56,7 +57,7 @@ async function mainFunction(id: string, business:
                     businessCuisine=${business.cuisine},
                     businessSignatureDishes=${business.signatureDishes?.join(";")},
                     businessSpecials=${business.specials?.map(
-                        (s) => (s.description? s.label: s.label + "," + s.description))
+                        (s) => (s.description? s.label + "," + s.description : s.label ))
                         .join(";")}
                     //
                     Format: 

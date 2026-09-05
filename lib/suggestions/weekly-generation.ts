@@ -101,6 +101,7 @@ export type BusinessForGeneration = Pick<
 //    (cast business.postingFrequency as number). No excludeFormatIds —
 //    that's only used by the future regenerate flow.
 // 3. Call and return selectFormats(input).
+
 export async function generateWeeklyFormats(
   business: BusinessForGeneration,
 ): Promise<ContentFormatDef[]> {

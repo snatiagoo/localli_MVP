@@ -25,12 +25,16 @@ import type { Goal } from "@/lib/content/goals";
 // restrict what a text column is allowed to hold, at the TypeScript level.
 export type ComfortLevel = "photo_only" | "simple_video" | "confident_video";
 export type MediaType = "photo" | "video";
-
+export type SubStatus = 
+  "active" | "past_due" | "canceled" | "unpaid" | "incomplete" | "trialing";
 // ----------------------------------------------------------------------------
 // TABLE 1: businesses — one row per restaurant owner's onboarding profile
 // ----------------------------------------------------------------------------
 export const businesses = pgTable("businesses", {
   id: uuid("id").primaryKey().defaultRandom(),
+  stripeCustomerId: text("stripe_customer_id").unique(),
+  stripeSubscriptionId: text("stripe_subscription_id").unique(),
+  subscriptionStatus: text("subscription_status").$type<SubStatus>(),
   clerkUserId: text("clerk_user_id").notNull().unique(),
   category: text("category").notNull().default("restaurant"),
   name: text("name"),

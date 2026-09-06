@@ -83,7 +83,7 @@ export async function getRecentlyUsedFormatIds(businessId: string): Promise<stri
 
 // The narrow slice of a business row this function actually needs — same
 // idea as ContentFormatDef in format-selection.ts, kept minimal on purpose.
-type BusinessForGeneration = Pick<
+export type BusinessForGeneration = Pick<
   typeof businesses.$inferSelect,
   "id" | "category" | "goal" | "contentComfortLevel" | "postingFrequency"
 >;
@@ -101,6 +101,7 @@ type BusinessForGeneration = Pick<
 //    (cast business.postingFrequency as number). No excludeFormatIds —
 //    that's only used by the future regenerate flow.
 // 3. Call and return selectFormats(input).
+
 export async function generateWeeklyFormats(
   business: BusinessForGeneration,
 ): Promise<ContentFormatDef[]> {

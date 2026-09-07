@@ -21,12 +21,14 @@ import {
 } from "drizzle-orm/pg-core";
 import type { Goal } from "@/lib/content/goals";
 
+import Stripe from "stripe";
+
 // Plain TS unions (not DB types) — used with `.$type<...>()` below to
 // restrict what a text column is allowed to hold, at the TypeScript level.
 export type ComfortLevel = "photo_only" | "simple_video" | "confident_video";
 export type MediaType = "photo" | "video";
 export type SubStatus = 
-  "active" | "past_due" | "canceled" | "unpaid" | "incomplete" | "trialing";
+  Stripe.Subscription.Status;
 // ----------------------------------------------------------------------------
 // TABLE 1: businesses — one row per restaurant owner's onboarding profile
 // ----------------------------------------------------------------------------

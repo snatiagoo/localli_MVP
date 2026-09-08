@@ -1,7 +1,9 @@
+import { requireOnboardedBusiness } from "@/lib/dal";
 import { db } from "@/lib/db";
 import { businesses } from "@/lib/db/schema";
 import { stripe } from "@/lib/stripe";
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 
 
 // Placeholder — temporary intermediate page Stripe Checkout redirects to
@@ -17,9 +19,10 @@ export default async function PaywallSuccessPage({
   searchParams: Promise<{ session_id?: string }>
 }) {
   const { session_id } = await searchParams;
+  const business = await requireOnboardedBusiness();
 
   if(!session_id){
-    throw new Error("Session id was not found")
+    redirect("/paywall")
   }
 
   const session = await stripe.checkout.sessions.retrieve(session_id, { expand: ["subscription"]});
@@ -28,6 +31,10 @@ export default async function PaywallSuccessPage({
   ? session.customer
   : session.customer?.id;
 
+  if(business.stripeCustomerId !== customerId){
+    throw new Error("This checkout session does not belong to this business")
+  }
+  
   const subscription = session.subscription
   const subscriptionId = typeof subscription === "string" ? subscription : subscription?.id;
   const subscriptionStatus = typeof subscription === "string" ? undefined : subscription?.status;
@@ -42,12 +49,9 @@ export default async function PaywallSuccessPage({
   }
 
   await db.update(businesses).set({
-    stripeSubscriptionId: (await session).id,
+    stripeSubscriptionId: subscriptionId,
+    subscriptionStatus: subscriptionStatus
   }).where(eq(businesses.stripeCustomerId, customerId))
 
-  return (
-    <main className="flex min-h-screen items-center justify-center p-8">
-      <p>Confirmando tu pago...</p>
-    </main>
-  );
+  redirect("/dashboard")
 }

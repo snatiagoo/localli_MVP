@@ -21,22 +21,16 @@ import {
 } from "drizzle-orm/pg-core";
 import type { Goal } from "@/lib/content/goals";
 
-import Stripe from "stripe";
-
 // Plain TS unions (not DB types) — used with `.$type<...>()` below to
 // restrict what a text column is allowed to hold, at the TypeScript level.
 export type ComfortLevel = "photo_only" | "simple_video" | "confident_video";
 export type MediaType = "photo" | "video";
-export type SubStatus = 
-  Stripe.Subscription.Status;
+
 // ----------------------------------------------------------------------------
 // TABLE 1: businesses — one row per restaurant owner's onboarding profile
 // ----------------------------------------------------------------------------
 export const businesses = pgTable("businesses", {
   id: uuid("id").primaryKey().defaultRandom(),
-  stripeCustomerId: text("stripe_customer_id").unique(),
-  stripeSubscriptionId: text("stripe_subscription_id").unique(),
-  subscriptionStatus: text("subscription_status").$type<SubStatus>(),
   clerkUserId: text("clerk_user_id").notNull().unique(),
   category: text("category").notNull().default("restaurant"),
   name: text("name"),

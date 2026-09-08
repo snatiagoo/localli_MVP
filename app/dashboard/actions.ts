@@ -8,13 +8,12 @@ import { revalidatePath } from "next/cache";
 
 import z from "zod";
 
-// One combined schema out of audienceSchema plus just the two logisticSchema
-// fields that actually drive weekly generation (comfort level, posting
-// frequency) — socialHandles/address/phone moved to the profile page, since
-// they're static business info, not weekly-generation tuning knobs.
+// One combined schema out of the two onboarding schemas — spreading both
+// `.shape`s into a fresh z.object() rather than reusing audienceSchema or
+// logisticSchema on their own, since this form saves both sections at once.
 const settingsSchema = z.object({
     ...audienceSchema.shape,
-    ...logisticSchema.pick({ contentComfortLevel: true, postingFrequency: true }).shape,
+    ...logisticSchema.shape,
 });
 
 export type SettingsFormState = ReturnType<typeof z.treeifyError<z.infer<typeof settingsSchema>>>;
@@ -28,6 +27,13 @@ export async function updateBusinessSettings(prevState: SettingsFormState, formD
         brandTone: formData.get("brandTone"),
         contentComfortLevel: formData.get("contentComfortLevel"),
         postingFrequency: formData.get("postingFrequency"),
+        socialHandles: {
+            instagram: formData.get("instagramHandle") || undefined,
+            tiktok: formData.get("tiktokHandle") || undefined,
+            facebook: formData.get("facebookHandle") || undefined,
+        },
+        address: formData.get("address"),
+        phone: formData.get("phone"),
     });
 
     if (!validated.success) {
@@ -42,6 +48,9 @@ export async function updateBusinessSettings(prevState: SettingsFormState, formD
         brandTone: validated.data.brandTone,
         contentComfortLevel: validated.data.contentComfortLevel,
         postingFrequency: validated.data.postingFrequency,
+        socialHandles: validated.data.socialHandles,
+        address: validated.data.address,
+        phone: validated.data.phone,
     }).where(eq(businesses.clerkUserId, userId));
 
     // No redirect — this form lives on the dashboard itself. revalidatePath

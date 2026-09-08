@@ -17,6 +17,9 @@ export default async function UserProfilePage(){
                         goal: business.goal,
                         signatureDishes: business.signatureDishes,
                         specials: business.specials,
+                        socialHandles: business.socialHandles,
+                        address: business.address,
+                        phone: business.phone,
                     }}
                 />
             </div>

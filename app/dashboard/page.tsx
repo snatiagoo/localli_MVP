@@ -30,9 +30,6 @@ export default async function DashboardPage() {
             brandTone: business.brandTone,
             contentComfortLevel: business.contentComfortLevel,
             postingFrequency: business.postingFrequency,
-            socialHandles: business.socialHandles,
-            address: business.address,
-            phone: business.phone,
           }}
         />
       </div>

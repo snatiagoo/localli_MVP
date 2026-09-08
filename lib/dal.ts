@@ -56,3 +56,17 @@ export async function requireOnboardedBusiness() {
   }
   return res;
 }
+
+
+export async function requireActiveSubscription(){
+  
+  const business = await requireOnboardedBusiness();
+
+  if(business.subscriptionStatus !== "active"){
+    redirect("/paywall")
+  }
+
+  return business;
+  
+
+}

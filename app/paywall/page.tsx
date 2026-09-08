@@ -15,6 +15,3 @@ export default function PaywallPage() {
     </main>
   );
 }
-
-
-//remember to add env vars to vercel

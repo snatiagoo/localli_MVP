@@ -1,12 +1,12 @@
 
-import { requireOnboardedBusiness } from "@/lib/dal";
+import { requireActiveSubscription } from "@/lib/dal";
 import { getOrGenerateWeeklySuggestions } from "@/lib/suggestions/orchestrator";
 import { SettingsForm } from "./settings-form";
 // Placeholder — this is a manual/temporary check that the format-selection
 // algorithm runs against real DB data. The real suggestion cards (shot
 // list, editing notes, caption via Claude) get built in a later step.
 export default async function DashboardPage() {
-  const business = await requireOnboardedBusiness();
+  const business = await requireActiveSubscription();
 
   const suggestionRows = await getOrGenerateWeeklySuggestions(business);
 
@@ -30,9 +30,6 @@ export default async function DashboardPage() {
             brandTone: business.brandTone,
             contentComfortLevel: business.contentComfortLevel,
             postingFrequency: business.postingFrequency,
-            socialHandles: business.socialHandles,
-            address: business.address,
-            phone: business.phone,
           }}
         />
       </div>

@@ -23,6 +23,9 @@ export function SettingsForm({
     brandTone?: string | null;
     contentComfortLevel?: ComfortLevel | null;
     postingFrequency?: number | null;
+    socialHandles?: { instagram?: string | null; tiktok?: string | null; facebook?: string | null } | null;
+    address?: string | null;
+    phone?: string | null;
   };
 }) {
   const [state, formAction, pending] = useActionState(updateBusinessSettings, initialState);
@@ -114,6 +117,60 @@ export function SettingsForm({
           <p className="text-sm text-red-600">{state.properties.postingFrequency.errors[0]}</p>
         )}
       </fieldset>
+
+      <div className="flex flex-col gap-3">
+        <p className="text-sm font-medium">Redes sociales (opcional, solo como referencia)</p>
+        <input
+          name="instagramHandle"
+          type="text"
+          placeholder="Instagram"
+          defaultValue={defaultValues.socialHandles?.instagram ?? ""}
+          className="rounded-md border border-gray-300 px-3 py-2"
+        />
+        <input
+          name="tiktokHandle"
+          type="text"
+          placeholder="TikTok"
+          defaultValue={defaultValues.socialHandles?.tiktok ?? ""}
+          className="rounded-md border border-gray-300 px-3 py-2"
+        />
+        <input
+          name="facebookHandle"
+          type="text"
+          placeholder="Facebook"
+          defaultValue={defaultValues.socialHandles?.facebook ?? ""}
+          className="rounded-md border border-gray-300 px-3 py-2"
+        />
+        {state.properties?.socialHandles?.errors?.[0] && (
+          <p className="text-sm text-red-600">{state.properties.socialHandles.errors[0]}</p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="address" className="text-sm font-medium">
+          Dirección (opcional)
+        </label>
+        <input
+          id="address"
+          name="address"
+          type="text"
+          defaultValue={defaultValues.address ?? ""}
+          className="rounded-md border border-gray-300 px-3 py-2"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="phone" className="text-sm font-medium">
+          Teléfono (opcional)
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          type="text"
+          defaultValue={defaultValues.phone ?? ""}
+          className="rounded-md border border-gray-300 px-3 py-2"
+        />
+      </div>
 
       {state.errors && state.errors.length > 0 && (
         <p className="text-sm text-red-600">{state.errors[0]}</p>

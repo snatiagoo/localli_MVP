@@ -55,6 +55,6 @@ export async function saveLogistics(prevState: LogisticFormState, formData: Form
         }
     })
 
-    redirect("/examples");
+    redirect("/dashboard");
     
 }

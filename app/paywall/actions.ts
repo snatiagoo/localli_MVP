@@ -31,7 +31,7 @@ export async function checkoutFunction(){
                 quantity: 1
             }],
             mode: "subscription",
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/paywall/success`,
+            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/paywall/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/paywall`,
         }
     )

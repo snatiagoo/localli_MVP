@@ -46,7 +46,7 @@ export async function mainFunction(id: string, business:
     const response = await client.messages.parse({
         model: "claude-sonnet-5",
         max_tokens: 1024,
-        system: "You are a social media content strategist for RESTAURANTS, ALWAYS respond in SPANISH",
+        system: "You are a social media content strategist for RESTAURANTS, ALWAYS respond in SPANISH. The person filming is a restaurant owner with a phone, not a photographer or videographer — in shotList and editingNotes, use plain everyday words for what to film and how to cut it, never technical photography/videography jargon (e.g. avoid terms like 'plano contrapicado', 'regla de los tercios', 'profundidad de campo', 'dolly', 'gimbal'); say things like 'graba de cerca' or 'acércate al plato' instead. In the caption, wrap 1-3 key words or short phrases in double asterisks (**like this**) to mark them for bold emphasis when displayed — e.g. the dish name or the call to action. Don't bold more than that, and never use asterisks anywhere else in the caption.",
         messages: [
             {
                 role: "user",

@@ -5,8 +5,30 @@ import { businesses } from "@/lib/db/schema";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { regenerateSuggestion, RegenerationLimitError } from "@/lib/suggestions/regenerate";
 
 import z from "zod";
+
+export type RegenerateActionResult = { error?: string };
+
+// Also handles revalidation — regenerateSuggestion() itself doesn't, so
+// without this the dashboard would keep showing the old (deleted) row
+// until some unrelated navigation happened to refetch it. Errors are
+// returned rather than thrown so the card can show a calm inline message
+// instead of tripping Next.js's default error boundary.
+export async function regenerateAction(formData: FormData): Promise<RegenerateActionResult> {
+    const suggestionId = formData.get("suggestionId") as string;
+    try {
+        await regenerateSuggestion(suggestionId);
+    } catch (err) {
+        if (err instanceof RegenerationLimitError) {
+            return { error: err.message };
+        }
+        throw err;
+    }
+    revalidatePath("/dashboard");
+    return {};
+}
 
 // One combined schema out of audienceSchema plus just the two logisticSchema
 // fields that actually drive weekly generation (comfort level, posting

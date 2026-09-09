@@ -23,10 +23,10 @@ export default async function BasicsPage() {
   const business = await getCurrentBusiness();
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-8 p-8">
+    <main className="mx-auto flex flex-1 w-full max-w-lg flex-col justify-center gap-8 p-8">
       <div>
-        <h1 className="text-2xl font-semibold">Empecemos con lo básico</h1>
-        <p className="text-gray-600">Cuéntanos sobre tu negocio.</p>
+        <h1 className="font-display text-2xl font-bold">Empecemos con lo básico</h1>
+        <p className="text-muted">Cuéntanos sobre tu negocio.</p>
       </div>
       <BasicsForm
         defaultValues={{ name: business?.name, cuisine: business?.cuisine, goal: business?.goal }}

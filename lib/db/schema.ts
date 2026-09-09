@@ -63,6 +63,13 @@ export const businesses = pgTable("businesses", {
     withTimezone: true,
   }),
 
+  // Regeneration rate-limit (3/week, shared across all of that week's
+  // cards). Suggestion rows get deleted on regeneration, so a running count
+  // on the business itself is what survives — reset whenever a regeneration
+  // is requested for a different weekStartDate than the one stored here.
+  regenerationsUsed: integer("regenerations_used").notNull().default(0),
+  regenerationsWeekStartDate: date("regenerations_week_start_date"),
+
   // `.notNull()` added — createdAt/updatedAt should always have a value.
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()

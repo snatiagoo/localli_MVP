@@ -5,10 +5,10 @@ export default async function AudiencePage() {
   const business = await getCurrentBusiness();
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-8 p-8">
+    <main className="mx-auto flex flex-1 w-full max-w-lg flex-col justify-center gap-8 p-8">
       <div>
-        <h1 className="text-2xl font-semibold">Tu público y tu tono</h1>
-        <p className="text-gray-600">Ayúdanos a entender a quién le hablas.</p>
+        <h1 className="font-display text-2xl font-bold">Tu público y tu tono</h1>
+        <p className="text-muted">Ayúdanos a entender a quién le hablas.</p>
       </div>
       <AudienceForm
         defaultValues={{

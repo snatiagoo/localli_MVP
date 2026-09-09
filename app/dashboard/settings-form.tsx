@@ -1,6 +1,4 @@
 "use client";
-// also present on feat/cron PR and merged but I wanted to create a 
-// specific push for it so im addign this comment to do it
 
 import { useActionState } from "react";
 import { updateBusinessSettings, type SettingsFormState } from "./actions";
@@ -29,10 +27,15 @@ export function SettingsForm({
 
   return (
     <form action={formAction} className="flex flex-col gap-6">
-      <h2 className="text-lg font-semibold">Ajustes del negocio</h2>
-
       <div className="flex flex-col gap-1">
-        <label htmlFor="targetAudience" className="text-sm font-medium">
+        <h2 className="font-display text-2xl font-bold m-0">Ajustes del negocio</h2>
+        <p className="m-0 text-sm text-muted">
+          Esto influye directamente en lo que te sugerimos cada semana.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="targetAudience" className="text-sm font-semibold">
           ¿A quién quieres atraer?
         </label>
         <input
@@ -40,15 +43,15 @@ export function SettingsForm({
           name="targetAudience"
           type="text"
           defaultValue={defaultValues.targetAudience ?? ""}
-          className="rounded-md border border-gray-300 px-3 py-2"
+          className="rounded-[10px] border border-border bg-surface px-3 py-2.5 text-sm"
         />
         {state.properties?.targetAudience?.errors?.[0] && (
           <p className="text-sm text-red-600">{state.properties.targetAudience.errors[0]}</p>
         )}
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="brandTone" className="text-sm font-medium">
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="brandTone" className="text-sm font-semibold">
           ¿Cómo describirías el tono de tu marca?
         </label>
         <input
@@ -56,23 +59,23 @@ export function SettingsForm({
           name="brandTone"
           type="text"
           defaultValue={defaultValues.brandTone ?? ""}
-          className="rounded-md border border-gray-300 px-3 py-2"
+          className="rounded-[10px] border border-border bg-surface px-3 py-2.5 text-sm"
         />
         {state.properties?.brandTone?.errors?.[0] && (
           <p className="text-sm text-red-600">{state.properties.brandTone.errors[0]}</p>
         )}
       </div>
 
-      <hr className="border-gray-300" />
+      <hr className="border-border" />
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="text-sm font-medium mb-1">Nivel de comodidad con el contenido</legend>
+        <legend className="text-sm font-semibold mb-1">Nivel de comodidad con el contenido</legend>
         <div className="flex flex-col gap-2">
           {(Object.entries(COMFORT_LEVEL_LABELS) as [ComfortLevel, string][]).map(
             ([value, label]) => (
               <label
                 key={value}
-                className="cursor-pointer rounded-lg border border-gray-300 px-4 py-3 text-sm has-checked:border-black has-checked:bg-black has-checked:text-white"
+                className="cursor-pointer rounded-[10px] border border-border bg-surface px-4 py-3 text-sm font-semibold hover:border-accent/50 has-checked:border-accent has-checked:bg-accent/10 has-checked:text-accent"
               >
                 <input
                   type="radio"
@@ -92,12 +95,12 @@ export function SettingsForm({
       </fieldset>
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="text-sm font-medium mb-1">Frecuencia de publicación semanal</legend>
-        <div className="flex gap-3">
+        <legend className="text-sm font-semibold mb-1">Frecuencia de publicación semanal</legend>
+        <div className="flex gap-2.5">
           {POSTING_FREQUENCY_OPTIONS.map(({ value, label }) => (
             <label
               key={value}
-              className="flex-1 cursor-pointer rounded-lg border border-gray-300 px-4 py-3 text-center text-sm has-checked:border-black has-checked:bg-black has-checked:text-white"
+              className="flex-1 cursor-pointer rounded-[10px] border border-border bg-surface px-2 py-3 text-center text-sm font-semibold hover:border-accent/50 has-checked:border-accent has-checked:bg-accent/10 has-checked:text-accent"
             >
               <input
                 type="radio"
@@ -113,6 +116,10 @@ export function SettingsForm({
         {state.properties?.postingFrequency?.errors?.[0] && (
           <p className="text-sm text-red-600">{state.properties.postingFrequency.errors[0]}</p>
         )}
+        <p className="m-0 text-xs text-muted">
+          Los cambios aquí no afectan a las sugerencias de esta semana, ya generadas — se aplican a
+          partir de la semana que viene.
+        </p>
       </fieldset>
 
       {state.errors && state.errors.length > 0 && (
@@ -122,7 +129,7 @@ export function SettingsForm({
       <button
         type="submit"
         disabled={pending}
-        className="rounded-md bg-black text-white py-2 disabled:opacity-50"
+        className="rounded-[10px] bg-primary text-white py-3 font-bold disabled:opacity-50"
       >
         {pending ? "Guardando..." : "Guardar cambios"}
       </button>

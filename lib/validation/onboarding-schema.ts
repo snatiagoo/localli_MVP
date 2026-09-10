@@ -27,13 +27,13 @@ const contentComfortLevels = Object.keys(COMFORT_LEVEL_LABELS) as [ComfortLevel,
 //   - goal: use `z.enum(goalKeys)` (the array built above) — this checks
 //     the value is EXACTLY one of the 5 real goal strings, nothing else
 export const basicsSchema = z.object({
-    name: z.string().min(1),
+    name: z.string({ error: "El nombre del negocio es obligatorio." }).min(1, "El nombre del negocio es obligatorio."),
     cuisine: z.string().optional(),
-    goal: z.enum(goalKeys),
+    goal: z.enum(goalKeys, { error: "Selecciona qué quieres conseguir." }),
 });
 
 export const menuSchema = z.object({
-    signatureDishes: z.array(z.string().min(1)),
+    signatureDishes: z.array(z.string().min(1, "El nombre del plato no puede estar vacío.")),
     specials: z.array(z.object({
         label: z.string(),
         description: z.string().optional()
@@ -46,8 +46,12 @@ export const audienceSchema = z.object({
 })
 
 export const logisticSchema = z.object({
-    contentComfortLevel: z.enum(contentComfortLevels),
-    postingFrequency: z.coerce.number().int().min(1).max(3),
+    contentComfortLevel: z.enum(contentComfortLevels, { error: "Selecciona tu nivel de comodidad con el contenido." }),
+    postingFrequency: z.coerce
+        .number({ error: "Selecciona cuántas veces publicas por semana." })
+        .int("Selecciona cuántas veces publicas por semana.")
+        .min(1, "Selecciona cuántas veces publicas por semana.")
+        .max(3, "Como máximo puedes publicar 3 veces por semana."),
     socialHandles: z.object({
         instagram: z.string().optional(),
         tiktok: z.string().optional(),

@@ -6,10 +6,10 @@ export default async function UserProfilePage(){
     const business = await requireOnboardedBusiness();
 
     return(
-        <main className="flex min-h-screen flex-col items-center gap-12 p-8">
+        <main className="flex flex-1 flex-col items-center gap-12 p-8">
             <UserProfile />
 
-            <div className="w-full max-w-lg">
+            <div className="w-full max-w-3xl">
                 <ProfileForm
                     defaultValues={{
                         name: business.name,

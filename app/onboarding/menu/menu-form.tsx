@@ -27,15 +27,12 @@ export function MenuForm({
       : [{ label: "", description: "" }],
   );
 
-  // TODO — call useActionState(saveMenu, initialState) here, destructuring
-  // [state, formAction, pending], same pattern as basics-form.tsx.
-
   const [state, formAction, pending] = useActionState(saveMenu, initialState);
 
   return (
     <form action={formAction} className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium">Platos estrella</label>
+        <label className="text-sm font-semibold">Platos estrella</label>
         {dishes.map((dish, i) => (
           <div key={i} className="flex gap-2">
             <input
@@ -44,13 +41,13 @@ export function MenuForm({
               onChange={(e) =>
                 setDishes((prev) => prev.map((d, idx) => (idx === i ? e.target.value : d)))
               }
-              className="flex-1 rounded-md border border-gray-300 px-3 py-2"
+              className="flex-1 rounded-[10px] border border-border bg-surface px-3 py-2.5 text-sm"
             />
             {dishes.length > 1 && (
               <button
                 type="button"
                 onClick={() => setDishes((prev) => prev.filter((_, idx) => idx !== i))}
-                className="px-2 text-gray-500"
+                className="px-2 text-muted"
               >
                 Quitar
               </button>
@@ -61,7 +58,7 @@ export function MenuForm({
           <button
             type="button"
             onClick={() => setDishes((prev) => [...prev, ""])}
-            className="self-start text-sm text-blue-600"
+            className="self-start text-sm font-semibold text-accent"
           >
             + Añadir plato
           </button>
@@ -71,13 +68,15 @@ export function MenuForm({
           name="signatureDishes"
           value={JSON.stringify(dishes.map((d) => d.trim()).filter((d) => d !== ""))}
         />
-        {state?.properties?.signatureDishes?.errors?.[0]}
+        {state?.properties?.signatureDishes?.errors?.[0] && (
+          <p className="text-sm text-red-600">{state.properties.signatureDishes.errors[0]}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium">Especiales u ofertas recurrentes</label>
+        <label className="text-sm font-semibold">Especiales u ofertas recurrentes</label>
         {specials.map((special, i) => (
-          <div key={i} className="flex flex-col gap-1 rounded-md border border-gray-200 p-3">
+          <div key={i} className="flex flex-col gap-1 rounded-[10px] border border-border bg-surface p-3">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -88,13 +87,13 @@ export function MenuForm({
                     prev.map((s, idx) => (idx === i ? { ...s, label: e.target.value } : s)),
                   )
                 }
-                className="flex-1 rounded-md border border-gray-300 px-3 py-2"
+                className="flex-1 rounded-[10px] border border-border bg-background px-3 py-2.5 text-sm"
               />
               {specials.length > 1 && (
                 <button
                   type="button"
                   onClick={() => setSpecials((prev) => prev.filter((_, idx) => idx !== i))}
-                  className="px-2 text-gray-500"
+                  className="px-2 text-muted"
                 >
                   Quitar
                 </button>
@@ -109,7 +108,7 @@ export function MenuForm({
                   prev.map((s, idx) => (idx === i ? { ...s, description: e.target.value } : s)),
                 )
               }
-              className="rounded-md border border-gray-300 px-3 py-2"
+              className="rounded-[10px] border border-border bg-background px-3 py-2.5 text-sm"
             />
           </div>
         ))}
@@ -117,7 +116,7 @@ export function MenuForm({
           <button
             type="button"
             onClick={() => setSpecials((prev) => [...prev, { label: "", description: "" }])}
-            className="self-start text-sm text-blue-600"
+            className="self-start text-sm font-semibold text-accent"
           >
             + Añadir especial
           </button>
@@ -134,15 +133,17 @@ export function MenuForm({
               })),
           )}
         />
-        {state?.properties?.specials?.errors?.[0]}
+        {state?.properties?.specials?.errors?.[0] && (
+          <p className="text-sm text-red-600">{state.properties.specials.errors[0]}</p>
+        )}
       </div>
 
-      {state?.errors?.[0]}
+      {state?.errors?.[0] && <p className="text-sm text-red-600">{state.errors[0]}</p>}
 
       <button
         type="submit"
         disabled={pending}
-        className="rounded-md bg-black text-white py-2 disabled:opacity-50"
+        className="rounded-[10px] bg-primary text-white py-3 font-bold disabled:opacity-50"
       >
         {pending ? "Guardando..." : "Continuar"}
       </button>

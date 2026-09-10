@@ -17,7 +17,7 @@ export default function PaywallPage() {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-16 px-14 pb-16 max-w-6xl w-full box-border">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-16 px-14 pb-16 max-w-6xl w-full mx-auto box-border items-center">
         {/* Left: editorial content */}
         <div className="flex flex-col gap-7">
           <span className="text-xs font-bold tracking-wider text-accent">
@@ -51,8 +51,11 @@ export default function PaywallPage() {
           </div>
         </div>
 
-        {/* Right: offset price card */}
-        <div className="flex flex-col mt-16">
+        {/* Right: offset price card — shifted right and down so it reads as
+            its own floating element rather than lining up flush with the
+            text column, and bg-surface keeps it a shade off the page's
+            bg-background instead of blending in. */}
+        <div className="flex flex-col md:mt-10 md:ml-8">
           <div className="border-t-[6px] border-accent bg-surface rounded-b-2xl shadow-[0_8px_24px_oklch(0.34_0.11_258/0.12)] p-8 flex flex-col gap-4">
             <div className="flex items-baseline gap-1">
               <span className="font-display text-4xl font-bold">[PRECIO]</span>

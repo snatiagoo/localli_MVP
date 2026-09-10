@@ -1,10 +1,4 @@
 import Link from "next/link";
-
-// Placeholder — the four legal pages exist but are empty for now; real
-// content (and the contact details below) get filled in later. Required
-// reading under Spanish/EU law for a paid SaaS: Aviso Legal (LSSI-CE),
-// Política de Privacidad (RGPD/LOPDGDD), Política de Cookies, plus
-// Términos y Condiciones as standard commercial practice.
 export function Footer() {
   return (
     <footer className="bg-footer mt-auto">
@@ -28,7 +22,7 @@ export function Footer() {
           </Link>
         </nav>
 
-        <span>Contacto: [pendiente]</span>
+        <span>Contacto: locallicont@gmail.com</span>
       </div>
     </footer>
   );

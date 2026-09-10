@@ -1,8 +1,8 @@
-import { getCurrentBusiness } from "@/lib/dal";
+import { requirePreviousOnboardingSteps } from "@/lib/dal";
 import { LogisticsForm } from "./logistics-form";
 
 export default async function LogisticsPage() {
-  const business = await getCurrentBusiness();
+  const business = await requirePreviousOnboardingSteps();
 
   return (
     <main className="mx-auto flex flex-1 w-full max-w-lg flex-col justify-center gap-8 p-8">
@@ -12,11 +12,11 @@ export default async function LogisticsPage() {
       </div>
       <LogisticsForm
         defaultValues={{
-          contentComfortLevel: business?.contentComfortLevel,
-          postingFrequency: business?.postingFrequency,
-          socialHandles: business?.socialHandles,
-          address: business?.address,
-          phone: business?.phone,
+          contentComfortLevel: business.contentComfortLevel,
+          postingFrequency: business.postingFrequency,
+          socialHandles: business.socialHandles,
+          address: business.address,
+          phone: business.phone,
         }}
       />
     </main>

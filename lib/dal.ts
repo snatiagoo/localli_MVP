@@ -71,35 +71,6 @@ export async function requireActiveSubscription(){
 
 }
 
-// TODO — requirePreviousOnboardingSteps(): guard for /onboarding/logistics
-// (the final step). Right now someone can navigate straight to that URL and
-// submit it, which sets `onboardingCompletedAt` — the one field
-// requireOnboardedBusiness() checks — even if they skipped basics/menu/
-// audience entirely, leaving a business row with no name/goal that never
-// gets fixed since onboarding is already "done" as far as the app is
-// concerned. This function is the fix: called at the top of
-// app/onboarding/logistics/page.tsx, same way requireOnboardedBusiness() is
-// called at the top of the dashboard.
-//
-// Note what's actually "mandatory" here: looking at the Zod schemas in
-// lib/validation/onboarding-schema.ts, basicsSchema requires `name` and
-// `goal` — menuSchema and audienceSchema have NO required fields (dishes,
-// specials, targetAudience, brandTone are all optional). So the only two
-// fields worth checking are the ones from the basics step; there's nothing
-// to enforce from menu/audience because nothing there is actually required.
-//
-// 1. Call `await getCurrentBusiness()` (already defined above).
-// 2. If it's `null` (no business row exists at all — they never submitted
-//    basics), or the row exists but `name` or `goal` is falsy, call
-//    `redirect("/onboarding/basics")`.
-// 3. Otherwise return the business, same return-the-value-through pattern
-//    as requireOnboardedBusiness().
-//
-// Once you've written this, call it from
-// app/onboarding/logistics/page.tsx instead of (or alongside) however that
-// page currently reads the business — same one-line-at-the-top-of-the-page
-// pattern already used for the dashboard.
-
 export async function requirePreviousOnboardingSteps(){
   const business = await getCurrentBusiness();
 

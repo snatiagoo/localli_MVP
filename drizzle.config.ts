@@ -13,6 +13,6 @@ export default defineConfig({
   out: "./drizzle", // generated SQL migration files land here
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.LOCALLI_STORAGE_DATABASE_URL!,
+    url: process.env.DATABASE_URL!,
   },
 });

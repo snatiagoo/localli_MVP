@@ -58,7 +58,7 @@ export default function PaywallPage() {
         <div className="flex flex-col md:mt-10 md:ml-8">
           <div className="border-t-[6px] border-accent bg-surface rounded-b-2xl shadow-[0_8px_24px_oklch(0.34_0.11_258/0.12)] p-8 flex flex-col gap-4">
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-4xl font-bold">[PRECIO]</span>
+              <span className="font-display text-4xl font-bold">50€</span>
               <span className="text-sm text-muted">/mes</span>
             </div>
             <form action={checkoutFunction}>

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { Loader2, Image as ImageIcon, X, ChevronRight } from "lucide-react";
 import { regenerateAction } from "./actions";
 import type { suggestions } from "@/lib/db/schema";
+import { FORMAT_TEMPLATE_IMAGES } from "@/lib/content/format-templates";
 
 type SuggestionRow = typeof suggestions.$inferSelect;
 
@@ -39,9 +41,10 @@ export function SuggestionCard({ row, total }: { row: SuggestionRow; total: numb
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
-  // Called directly (no <form>) so the pending state from useTransition is
-  // available right here to blur the whole card — a <form>'s useFormStatus
-  // only reports pending to descendants of the form, not sibling content.
+  // Image states
+  const [activeFormatId, setActiveFormatId] = useState<string |null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+
   function handleRegenerate() {
     setError(null);
     const formData = new FormData();
@@ -50,7 +53,25 @@ export function SuggestionCard({ row, total }: { row: SuggestionRow; total: numb
       const result = await regenerateAction(formData);
       if (result.error) setError(result.error);
     });
+    
   }
+
+  function handleImageButton(formatId: string){
+    setActiveFormatId(formatId);
+    setActiveImageIndex(0);
+  }
+
+  function handleNextImage(){
+    //no if here as I will have it be the condition for the button 
+    // being shown isntead
+    setActiveImageIndex(activeImageIndex + 1);
+  }
+
+  function handleModalClose(){
+    setActiveFormatId(null);
+  }
+
+  
 
   const mediaLabel = row.mediaType === "video" ? "Video" : "Foto";
   const headerTitle = `${mediaLabel} ${row.position} de ${total}`;
@@ -61,7 +82,11 @@ export function SuggestionCard({ row, total }: { row: SuggestionRow; total: numb
 
   const montajeLines = row.editingNotes ? formatEditingNotes(row.editingNotes) : [];
 
+  const activeImages = activeFormatId ? (FORMAT_TEMPLATE_IMAGES[activeFormatId] ?? []) : [];
+  const hasNextImage = activeImageIndex < activeImages.length - 1;
+
   return (
+    <>
     <div className="relative">
       {isPending && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 rounded-2xl bg-surface/80">
@@ -84,7 +109,7 @@ export function SuggestionCard({ row, total }: { row: SuggestionRow; total: numb
                 onClick={handleRegenerate}
                 disabled={isPending}
                 title="Regenerar"
-                className="flex items-center justify-center w-[26px] h-[26px] shrink-0 bg-white/10 hover:bg-white/25 disabled:opacity-50 rounded-full"
+                className="flex items-center justify-center w-6.5 h-6.5 shrink-0 bg-white/10 hover:bg-white/25 disabled:opacity-50 rounded-full"
               >
                 <RegenerateIcon />
               </button>
@@ -104,10 +129,18 @@ export function SuggestionCard({ row, total }: { row: SuggestionRow; total: numb
                 <span className="text-xs font-medium text-white/70 whitespace-nowrap pt-0.5">{headerMeta}</span>
                 <button
                   type="button"
+                  onClick={() => handleImageButton(row.formatId)}
+                  title="Ver plantilla de composición"
+                  className="flex items-center justify-center w-6.5 h-6.5 shrink-0 bg-white/10 hover:bg-white/25 rounded-full"
+                >
+                  <ImageIcon size={13} strokeWidth={2.3} color="white" />
+                </button>
+                <button
+                  type="button"
                   onClick={handleRegenerate}
                   disabled={isPending}
                   title="Regenerar"
-                  className="flex items-center justify-center w-[26px] h-[26px] shrink-0 bg-white/10 hover:bg-white/25 disabled:opacity-50 rounded-full"
+                  className="flex items-center justify-center w-6.5 h-6.5 shrink-0 bg-white/10 hover:bg-white/25 disabled:opacity-50 rounded-full"
                 >
                   <RegenerateIcon />
                 </button>
@@ -153,6 +186,52 @@ export function SuggestionCard({ row, total }: { row: SuggestionRow; total: numb
         )}
       </div>
     </div>
+
+    {activeFormatId && activeImages.length > 0 && (
+      <div
+        onClick={handleModalClose}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6"
+      >
+        <button
+          type="button"
+          onClick={handleModalClose}
+          title="Cerrar"
+          className="absolute top-5 right-5 flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20"
+        >
+          <X size={20} color="white" />
+        </button>
+
+        <Image
+          src={activeImages[activeImageIndex]}
+          alt="Plantilla de composición"
+          width={646}
+          height={1142}
+          onClick={(e) => e.stopPropagation()}
+          className="max-h-[90vh] w-auto rounded-xl"
+        />
+
+        {hasNextImage && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNextImage();
+            }}
+            title="Siguiente imagen"
+            className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20"
+          >
+            <ChevronRight size={24} color="white" />
+          </button>
+        )}
+
+        {activeImages.length > 1 && (
+          <span className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-xs font-semibold bg-black/40 rounded-full px-3 py-1">
+            {activeImageIndex + 1} / {activeImages.length}
+          </span>
+        )}
+      </div>
+    )}
+    </>
   );
 }
 

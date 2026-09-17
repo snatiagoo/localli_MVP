@@ -4,7 +4,6 @@ import { businesses } from "@/lib/db/schema";
 import { stripe } from "@/lib/stripe";
 import { NextRequest } from "next/server";
 import Stripe from "stripe";
-import { SubStatus } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;

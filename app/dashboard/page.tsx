@@ -21,6 +21,10 @@ export default async function DashboardPage() {
 
   const suggestionRows = await getOrGenerateWeeklySuggestions(business);
 
+  // react-hooks/purity assumes any component might be re-invoked/memoized
+  // here there's no re-render for the randomness
+  // so that we dont see squiggly line we do:
+    // eslint-disable-next-line react-hooks/purity 
   const greeting = GREETINGS[Math.floor(Math.random() * GREETINGS.length)](
     business.name ?? "negocio",
   );

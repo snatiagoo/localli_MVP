@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { SignOutButton } from "@clerk/nextjs";
-import { Sparkles, SlidersHorizontal, UserCircle, LogOut } from "lucide-react";
+import { Sparkles, SlidersHorizontal, UserCircle, LogOut, HelpCircle } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
 const DASHBOARD_ITEMS = [
   { href: "/dashboard#sugerencias", label: "Sugerencias", icon: Sparkles },
   { href: "/dashboard#ajustes", label: "Ajustes", icon: SlidersHorizontal },
+  { href: "/guidance", label: "Guía de edición", icon: HelpCircle },
 ];
 
 export function Sidebar() {

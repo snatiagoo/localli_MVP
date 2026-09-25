@@ -6,22 +6,13 @@ import { Loader2, Image as ImageIcon, X, ChevronRight } from "lucide-react";
 import { regenerateAction } from "./actions";
 import type { suggestions } from "@/lib/db/schema";
 import { FORMAT_TEMPLATE_IMAGES } from "@/lib/content/format-templates";
+import { renderWithBold } from "@/lib/utils/render-with-bold";
 
 type SuggestionRow = typeof suggestions.$inferSelect;
 
 function formatWeek(weekStartDate: string) {
   const d = new Date(weekStartDate);
   return `Semana del ${d.getDate()}`;
-}
-
-// Splits "text **bold** more text" into alternating plain/bold pieces and
-// renders the **-wrapped ones as <strong> — Claude is instructed to mark
-// emphasis this way in the caption instead of inventing a custom format.
-function renderWithBold(text: string) {
-  const parts = text.split(/\*\*(.+?)\*\*/g);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? <strong key={i}>{part}</strong> : part,
-  );
 }
 
 // Returns one line per note instead of joining them into a single run-on

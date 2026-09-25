@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { HelpCircle } from "lucide-react";
 import { requireActiveSubscription } from "@/lib/dal";
 import { getOrGenerateWeeklySuggestions } from "@/lib/suggestions/orchestrator";
 import { SettingsForm } from "./settings-form";
@@ -42,7 +44,16 @@ export default async function DashboardPage() {
 
       <div id="sugerencias" className="flex flex-col items-center gap-5 w-full scroll-mt-8">
         <div className="flex flex-col items-center gap-1 text-center">
-          <h2 className="font-display text-[28px] font-bold m-0">Sugerencias de esta semana</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="font-display text-[28px] font-bold m-0">Sugerencias de esta semana</h2>
+            <Link
+              href="/guidance"
+              title="Guía de edición"
+              className="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border border-border text-muted hover:border-accent hover:text-accent"
+            >
+              <HelpCircle size={15} strokeWidth={2} />
+            </Link>
+          </div>
           <p className="m-0 text-[15px] text-muted">
             {business.name ?? "Tu negocio"} &mdash; {suggestionRows.length} ideas listas para grabar
           </p>

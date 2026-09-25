@@ -107,6 +107,4 @@ export function selectFormats(input: SelectFormatsInput): ContentFormatDef[] {
   const sorted = [...availableF].sort((a,b) => compareByFreshness(a, b, input.recentlyUsedFormatIds))
 
   return sorted.slice(0, input.count)
-   
-
 }

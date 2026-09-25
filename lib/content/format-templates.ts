@@ -1,10 +1,4 @@
-// Static, developer-authored composition-template images — one array of
-// image paths per content format id (matching lib/db/seed.ts's format ids
-// and the files in public/format-templates/). Almost every format has a
-// single template image; carousel_ingredients_steps_photo has three, one
-// per photo in that carousel. A format's array length is what tells the
-// modal whether to show "next image" controls — no separate isCarousel
-// flag needed, since images.length > 1 already means exactly that.
+
 export const FORMAT_TEMPLATE_IMAGES: Record<string, string[]> = {
   signature_dish_spotlight_video: ["/format-templates/signature_dish_spotlight_video.png"],
   daily_special_photo: ["/format-templates/daily_special_photo.png"],

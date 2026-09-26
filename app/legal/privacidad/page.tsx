@@ -55,17 +55,32 @@ export default function PrivacidadPage() {
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-lg font-bold m-0">5. Cuánto tiempo conservamos tus datos</h2>
           <p className="m-0 text-[15px] leading-relaxed text-muted">
-            Conservamos tus datos mientras tu cuenta esté activa. Si cancelas tu suscripción y
-            eliminas tu cuenta, tus datos se eliminan de nuestra base de datos.
+            Conservamos tus datos mientras tu cuenta esté activa. Cancelar tu suscripción no
+            elimina tus datos por sí solo — simplemente detiene el cobro y el acceso al panel.
+            Tus datos se eliminan por completo, de forma automática, cuando eliminas tu cuenta
+            (desde tu perfil o contactándonos): en ese momento se borran tu perfil de negocio,
+            tus sugerencias, y se cancela cualquier suscripción de Stripe que siguiera activa.
           </p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-lg font-bold m-0">6. Tus derechos</h2>
           <p className="m-0 text-[15px] leading-relaxed text-muted">
-            Puedes acceder, rectificar, eliminar tus datos, oponerte a su tratamiento o
-            solicitar su portabilidad escribiendo a locallicont@gmail.com. También puedes editar
-            la mayoría de tus datos de negocio directamente desde tu perfil en Localli.
+            Tienes derecho a acceder a tus datos, rectificarlos, solicitar su eliminación,
+            oponerte a su tratamiento, pedir que se limite, o solicitar su portabilidad. Puedes
+            ejercer estos derechos de dos formas: editando o eliminando tu cuenta directamente
+            desde tu perfil en Localli (la eliminación de cuenta borra tus datos de forma
+            inmediata y automática), o escribiendo a locallicont@gmail.com para cualquier otra
+            solicitud.
+          </p>
+        </section>
+
+        <section className="flex flex-col gap-2">
+          <h2 className="font-display text-lg font-bold m-0">7. Reclamaciones ante la autoridad de control</h2>
+          <p className="m-0 text-[15px] leading-relaxed text-muted">
+            Si consideras que el tratamiento de tus datos no se ajusta a la normativa, puedes
+            presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD),
+            a través de <a href="https://www.aepd.es" className="text-accent hover:underline">www.aepd.es</a>.
           </p>
         </section>
       </div>

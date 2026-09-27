@@ -37,7 +37,7 @@ This is my first end-to-end MVP, currently in the validation stage with real res
  
 ### Prerequisites
  
-- Node.js (LTS recommended)
+- Next.js
 - A [Neon](https://neon.tech) Postgres database
 - Accounts/keys for Clerk, Stripe, and the Anthropic (Claude) API
 ### Installation
@@ -48,14 +48,14 @@ git clone <your-repo-url>
 cd localli
  
 # Install dependencies
-npm install
+pnpm install
  
 # Set up environment variables
 cp .env.example .env.local
 # then fill in the values (see below)
  
 # Run the development server
-npm run dev
+pnpm run dev
 ```
  
 Open [http://localhost:3000](http://localhost:3000) to view the app locally.
@@ -113,10 +113,10 @@ STRIPE_WEBHOOK_SECRET=
 ### Scripts
  
 ```bash
-npm run dev     # Start the development server
-npm run build   # Build for production
-npm run start   # Run the production build
-npm run test    # Run unit tests (Vitest)
+pnpm run dev     # Start the development server
+pnpm run build   # Build for production
+pnpm run start   # Run the production build
+pnpm run test    # Run unit tests (Vitest)
 ```
  
 ## Status

@@ -66,7 +66,8 @@ export async function getOrGenerateWeeklySuggestions(business:
 
   if(existing.length === 0){
     await getSuggestions(business);
-    const res = await getExistingSuggestionsForWeek(businessId, weekStartDate)
+    const res = await getExistingSuggestionsForWeek(businessId, weekStartDate);
+
     return res;
   }else{
     return existing;

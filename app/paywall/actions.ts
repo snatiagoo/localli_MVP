@@ -14,7 +14,7 @@ export async function checkoutFunction(){
     if(!customerId){
         customerId =  (await stripe.customers.create({
             name: business.name as string,
-            metadata: { businessId: business.id}
+            metadata: { businessId: business.id},
         })).id;
 
         await db.update(businesses).set({
@@ -33,6 +33,7 @@ export async function checkoutFunction(){
             mode: "subscription",
             success_url: `${process.env.NEXT_PUBLIC_APP_URL}/paywall/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/paywall`,
+            allow_promotion_codes: true,
         }
     )
 

@@ -1,3 +1,4 @@
+locallicont.com
 # Localli
  
 **A social media content guidance tool for restaurants.** Localli helps restaurant owners who don't have the time or skills to create good social media content. Based on their goals, brand tone, and cuisine, it generates tailored content suggestions — including written guidance, a format-based example image, and a step-by-step editing guide for the Instagram Edits app.

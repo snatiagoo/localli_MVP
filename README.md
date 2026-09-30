@@ -33,6 +33,7 @@ This is my first end-to-end MVP, currently in the validation stage with real res
 | AI | Claude API (content generation) |
 | Testing | Vitest |
 | Hosting | Vercel |
+| Types | Zod
  
 ## Getting Started
  
@@ -136,3 +137,13 @@ pnpm run test    # Run unit tests (Vitest)
 ---
  
 *Localli is a personal project and my first full MVP, built to learn the end-to-end process of shipping and validating a product.*
+
+
+## LLM Depth Track learnings and explanation
+
+First time implementing an LLM API into a project. I implemented it in the simplest way possible, actually the second simples as with create instead of parse we can get pure raw respnse without it being structured, though we can later transform it to JSON it could fail. So I implemented it via structured output using the parse method from anthropic messages API.
+Basically that works by receving the usual parameters a call to the messages api on create would (system, messages, model, etc) but we add another parameter, one that gives the shape for the output. That is the output_config property, which receives an object of output config with just the format for the output, which is an output format created with Zod, via the zodOutputFormat function receiving creativeBrief object function (I dont know how to explain it, but basically z.object({})).
+
+So then, the call to the main function driving the generation would contact with the messages API passing the content in the parse function and then we would receive a JSON in the shape of creative brief.
+This is done so that I can easily, after receiving the JSON, get each of the properties of creativeBrief and use them for later logic in the code, from displaying the information correctly on the UI to certain logic based on whether we received a propery empty or with text.
+Also, it is much easier to do all that logic and implementation as well as troubleshooting if we get a consistent shape on the replies, which would probably fail if we instead told the llm to give it on a certain shape via prompt instead of enforcing it with the dedicated function.

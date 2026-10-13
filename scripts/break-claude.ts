@@ -32,6 +32,8 @@ async function badKey() {
   }
 }
 
+// the user will see an error page, instead of jsut one failign component or area
+
 
 
 async function badModel(){
@@ -48,6 +50,8 @@ async function badModel(){
 
 }
 
+// the user will see an error page, instead of jsut one failign component or area
+
 
 async function timeout(){
     const client = new Anthropic({ timeout: 1, maxRetries: 0});
@@ -63,12 +67,16 @@ async function timeout(){
 
 }
 
+// here idk what the user sees, I think nothign probalby, jsut as if nothign had happened
+
+
 
 
 async function truncated(){
     const client = new Anthropic();
+    let response;
     try{
-        await client.messages.parse({
+        response = await client.messages.parse({
             model: "claude-haiku-4-5",
             max_tokens: 50,
             messages: [{ role: "user", content: "hola"}],
@@ -77,9 +85,16 @@ async function truncated(){
         })
     } catch(err) {
         logError("truncated", err);
+        return;
     }
 
+    return response;
 }
+
+// I get not an API error, but it isnt working right now (yesterday it was)
+// sometimes I get a full resposne in udner 50 tokens (end_turn)
+    // in these cases returned response is not valid for my standards
+// and other times I get max_tokens stop reason (nto full response)
 
 
 async function happyPath(){
@@ -100,9 +115,8 @@ async function happyPath(){
 
     return response;
     
-
 }
-
+// whatever, it works
 
 async function main(){
 
@@ -115,7 +129,13 @@ async function main(){
     await timeout();
         // I got APIConnectionTimeout, no status or requestId
         // retrying could help
-    await truncated();
+    const truncatedData = (await truncated());
+
+    console.log(truncatedData?.stop_reason); // end_turn
+    console.log(truncatedData?._request_id); // no requestId as in timeout
+    console.log(truncatedData?.parsed_output); // the expected shape output
+
+
         // I got an Anthropic error, but not an API error
         // retrying wouldnt help
 

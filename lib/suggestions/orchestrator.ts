@@ -1,5 +1,5 @@
 
-import { mainFunction, creativeBrief } from "./generate-brief";
+import { mainFunction, creativeBrief, logError } from "./generate-brief";
 import { generateWeeklyFormats } from "./weekly-generation";
 import { businesses, MediaType, suggestions} from "../db/schema";
 import { db } from "../db";
@@ -19,6 +19,7 @@ export type BriefWithPosition = {
   mediaType: MediaType;
   targetDurationSeconds: number | undefined
 };
+
 
 
 function computeWeekStartDate(){
@@ -99,14 +100,35 @@ export async function getSuggestions(
         const mediaType = format.mediaType;
         const position = index + 1;
         const startWeekDate = computeWeekStartDate();
+        await saveSuggestion(formatId, business, mediaType, position, startWeekDate, false, null, null)
 
-        await saveSuggestion(formatId, business, mediaType, position, startWeekDate, false, null)
+        
     }
 
     
 
 
 }
+
+
+export async function regenerateSuggestionMain(
+    formatId: string, 
+    business: typeof businesses.$inferSelect,
+){
+    
+    const res = (await mainFunction(formatId, business)).parsed_output;
+    if(res === null){
+        throw new Error("Null regeneration, Claude failed");
+    }
+    return res;
+    
+}
+
+
+
+
+
+
 
 export async function saveSuggestion(
     formatId: string, 
@@ -115,25 +137,18 @@ export async function saveSuggestion(
     position: number,
     startWeekDate: string,
     isRegen: boolean,
-    regenerationId: string| null
+    regenerationId: string| null,
+    parsedOutput: z.infer<typeof creativeBrief> | null,
 ){
-
-
-    const res = (await mainFunction(formatId, business)).parsed_output;
     const suggestionList: BriefWithPosition[] = [];
+
+    try{
+        const res = parsedOutput ? 
+        parsedOutput
+        : (await mainFunction(formatId, business)).parsed_output;
         
         if(!res){
-            suggestionList.push({
-                position: position,
-                status: "failed",
-                shotList: [],
-                editingNotes: null,
-                caption: "",
-                generationError: "Error parsing output",
-                formatId: formatId,
-                mediaType: mediaType,
-                targetDurationSeconds: 0
-            })
+            throw new Error("Failed to generate parsed output from suggestion")
         }else{
             suggestionList.push({
                 position: position,
@@ -147,25 +162,58 @@ export async function saveSuggestion(
             })
         }
 
-    
+        for(const s of suggestionList){
+            await db.insert(suggestions).values({
+                businessId: business.id,
+                formatId: s.formatId,
+                mediaType: s.mediaType,
+                weekStartDate: startWeekDate,
+                position: s.position,
+                targetDurationSeconds: s.targetDurationSeconds,
+                shotList: s.shotList,
+                editingNotes: s.editingNotes? s.editingNotes: null,
+                caption: s.caption,
+                status: s.status,
+                generationError: s.generationError ? s.generationError : null,
+                isRegeneration: isRegen,
+                regeneratedFromSuggestionId: regenerationId,
+            })
+        }
 
+    }catch(err){
+        logError("Failed to generate suggestion", err);
 
-    for(const s of suggestionList){
-        await db.insert(suggestions).values({
-            businessId: business.id,
-            formatId: s.formatId,
-            mediaType: s.mediaType,
-            weekStartDate: startWeekDate,
-            position: s.position,
-            targetDurationSeconds: s.targetDurationSeconds,
-            shotList: s.shotList,
-            editingNotes: s.editingNotes? s.editingNotes: null,
-            caption: s.caption,
-            status: s.status,
-            generationError: s.generationError ? s.generationError : null,
-            isRegeneration: isRegen,
-            regeneratedFromSuggestionId: regenerationId,
+        suggestionList.push({
+                position: position,
+                status: "failed",
+                shotList: [],
+                editingNotes: null,
+                caption: "",
+                generationError: "Failed to generate suggestion",
+                formatId: formatId,
+                mediaType: mediaType,
+                targetDurationSeconds: 0
         })
+
+        for(const s of suggestionList){
+            await db.insert(suggestions).values({
+                businessId: business.id,
+                formatId: s.formatId,
+                mediaType: s.mediaType,
+                weekStartDate: startWeekDate,
+                position: s.position,
+                targetDurationSeconds: s.targetDurationSeconds,
+                shotList: s.shotList,
+                editingNotes: s.editingNotes? s.editingNotes: null,
+                caption: s.caption,
+                status: s.status,
+                generationError: s.generationError ? s.generationError : null,
+                isRegeneration: isRegen,
+                regeneratedFromSuggestionId: regenerationId,
+            });
+        }
+
     }
+    
 
 }

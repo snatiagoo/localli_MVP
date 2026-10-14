@@ -23,8 +23,12 @@ export async function regenerateAction(formData: FormData): Promise<RegenerateAc
     } catch (err) {
         if (err instanceof RegenerationLimitError) {
             return { error: err.message };
+        }else{
+            console.error(err);
+            return { 
+                error: "No pudimos regenerar esta sugerencia, inténtalo de nuevo"
+            };
         }
-        throw err;
     }
     revalidatePath("/dashboard");
     return {};

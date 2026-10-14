@@ -20,7 +20,7 @@ const GREETINGS = [
 
 export default async function DashboardPage() {
   const business = await requireActiveSubscription();
-
+  
   const suggestionRows = await getOrGenerateWeeklySuggestions(business);
 
   // react-hooks/purity assumes any component might be re-invoked/memoized

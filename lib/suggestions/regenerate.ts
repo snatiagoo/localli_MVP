@@ -1,11 +1,12 @@
 
 import { businesses, ComfortLevel, suggestions } from "../db/schema";
+import { logError } from "./generate-brief";
 import { db } from "../db";
 import { and, eq } from "drizzle-orm";
 import { getAvailableFormats, getRecentlyUsedFormatIds } from "./weekly-generation";
 import { selectFormats, SelectFormatsInput } from "../content/format-selection";
 import { Goal } from "../content/goals";
-import { saveSuggestion } from "./orchestrator";
+import { regenerateSuggestionMain, saveSuggestion } from "./orchestrator";
 
 const REGENERATIONS_PER_WEEK_LIMIT = 3;
 
@@ -52,10 +53,6 @@ export async function regenerateSuggestion(suggestionId: string){
         );
     }
 
-    await db.update(businesses).set({
-        regenerationsUsed: business.regenerationsUsed + 1,
-        regenerationsWeekStartDate: weekStartDate,
-    }).where(eq(businesses.id, businessId));
 
     const excludeList = await db.select().from(suggestions).where(
         and(
@@ -87,9 +84,29 @@ export async function regenerateSuggestion(suggestionId: string){
     const mediaType = replacementFormat.mediaType;
     const formatId = replacementFormat.id;
     
-
-    await db.delete(suggestions).where(eq(suggestions.id, suggestionId))
     
-    await saveSuggestion(formatId, business, mediaType, position, weekStartDate, true, oldId)
+    const output = await regenerateSuggestionMain(formatId, business);
+    await db.delete(suggestions).where(eq(suggestions.id, suggestionId));
+
+    await saveSuggestion(formatId, business, mediaType, position, weekStartDate, true, oldId, output);
+
+    if(!(old.status == "failed")){
+        await db.update(businesses).set({
+        regenerationsUsed: business.regenerationsUsed + 1,
+        regenerationsWeekStartDate: weekStartDate,
+        }).where(eq(businesses.id, businessId));
+    }
+    
+    
+    
+
+
+
+    
+
+    
+    
+
+    
 
 }

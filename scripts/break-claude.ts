@@ -67,7 +67,8 @@ async function timeout(){
 
 }
 
-// here idk what the user sees, I think nothign probalby, jsut as if nothign had happened
+// vercel timeout error after default tiemout of 10 mintues if I dont change
+// anything
 
 
 
@@ -91,11 +92,13 @@ async function truncated(){
     return response;
 }
 
-// I get not an API error, but it isnt working right now (yesterday it was)
-// sometimes I get a full resposne in udner 50 tokens (end_turn)
+// I get not an API error, when there is a trucnated error
+// else I either get a full resposne in udner 50 tokens (end_turn)
     // in these cases returned response is not valid for my standards
-// and other times I get max_tokens stop reason (nto full response)
+// or I get max_tokens stop reason (not full response, but not error)
 
+// so I have to handle stops due to max_tokens 
+// and also empty madnatory fields (liek empty shotlist)
 
 async function happyPath(){
     const client = new Anthropic();
@@ -123,17 +126,26 @@ async function main(){
     await badKey();
         // I got 401, authentication error of invalid api key, no retry
         // retryign woudlnt help
+        // logging already handled
+
+
     await badModel();
         // I got 404 NotFound for model
-        // retryign wouldnt help
+        // retrying wouldnt help
+        // Loggin already handled
+
+
     await timeout();
         // I got APIConnectionTimeout, no status or requestId
         // retrying could help
+        // I woudl log the error itself and the requestId
     const truncatedData = (await truncated());
 
     console.log(truncatedData?.stop_reason); // end_turn
-    console.log(truncatedData?._request_id); // no requestId as in timeout
+    console.log(truncatedData?._request_id); // no requestId
     console.log(truncatedData?.parsed_output); // the expected shape output
+
+    // I would log the three of them
 
 
         // I got an Anthropic error, but not an API error
@@ -143,8 +155,10 @@ async function main(){
         // no need to retry anything
 
     console.log(happyPathData?.stop_reason); // end_turn
-    console.log(happyPathData?._request_id); // no requestId as in timeout
+    console.log(happyPathData?._request_id); // no requestId
     console.log(happyPathData?.parsed_output); // the expected shape output
+
+    // I woudl log the three of them
 
 
     // Then we have:
@@ -155,6 +169,10 @@ async function main(){
     //529 overloaded
         // API overloaded
         // retry with backoff can help
+
+
+    // for the lack of request Id we need to do parse({...}).withResponse() 
+    // and assign it to const { data, request_id }
 }
 
 main();

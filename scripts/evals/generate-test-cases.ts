@@ -9,7 +9,7 @@ import { writeFile } from "fs/promises";
 
 const client = new Anthropic();
 
-const testBusiness = z.object({
+export const testBusiness = z.object({
     name: z.string(),
     category: z.enum(["restaurant"]),
     goal: z.enum([ 

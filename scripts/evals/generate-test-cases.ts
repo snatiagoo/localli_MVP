@@ -4,7 +4,7 @@ import { config } from "dotenv";
 config({ path: ".env.local" });
 
 import z from "zod";
-import { system, userMessage } from "./prompts";
+import { testCasesSystem, userMessage } from "./prompts";
 import { writeFile } from "fs/promises";
 
 const client = new Anthropic();
@@ -42,7 +42,7 @@ export async function generateTestCases(){
     const data = await client.messages.parse({
         max_tokens: 16000,
         model: "claude-haiku-5-5",
-        system: system,
+        system: testCasesSystem,
         messages: [{
             role: "user",
             content: userMessage,

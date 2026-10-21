@@ -1,0 +1,143 @@
+[
+  {
+    "testCase": {
+      "name": "Taquería El Güero",
+      "category": "restaurant",
+      "goal": "more_walk_ins",
+      "cuisine": "mexicana",
+      "signatureDishes": [
+        "Tacos de birria",
+        "Tacos al pastor",
+        "Consomé de res"
+      ],
+      "specials": [
+        {
+          "label": "2x1 en tacos los martes",
+          "description": "Aplica solo en tacos de guisado"
+        },
+        {
+          "label": "Agua de jamaica gratis con tacos"
+        }
+      ]
+    },
+    "format": {
+      "id": "signature_dish_spotlight_video",
+      "name": "Video de plato estrella",
+      "mediaType": "video",
+      "description": "Video corto mostrando la preparación o presentación de un plato insignia.",
+      "goalTags": [
+        "more_walk_ins",
+        "more_takeout_orders",
+        "promote_new_menu_items"
+      ],
+      "requiresComfortLevel": "simple_video",
+      "promptGuidance": "Enfócate en uno de los platos estrella del negocio. Incluye un plano de cocción o preparación y un plano del emplatado final."
+    },
+    "reason": "Natural Spanish: The language is fluent and idiomatic Mexican Spanish. Words like \"comal\", \"deshebrada\", \"chisporroteo\", \"bañadito\" and \"corridos tumbados\" fit a Mexican taquería well. There are no translation artifacts.\n\nPlain writing: Every shot is concrete and actionable for an amateur, for example \"acércate para que se vea el vapor\", \"parte uno por la mitad para que se vea el relleno\" and \"que se escuche el chisporroteo\". The editing notes are also simple: \"corta rápido entre cada paso\".\n\nDishes and specials: The brief centers on a real signature dish, the tacos de birria, and ties in the consomé, which is also a listed signature dish. That makes it specific to this restaurant. However, the caption pairs the birria pitch with \"no te pierdas el 2x1 en tacos los martes\". BUSINESS says this special applies only to tacos de guisado. The caption omits that restriction and places it right after the birria pitch, which implies birria tacos are 2x1. That is a misrepresentation of a real offer. The free agua de jamaica, which would fit naturally, is not used.\n\nFormat and goal fit: This is a correct video format. It focuses on one dish, includes cooking shots (comal, dorado) and a final plating shot, as the guidance requires. The closing facade shot and the \"Ven por los tuyos hoy mismo\" overlay support the more_walk_ins goal. A minor issue: the shot durations add up to 33s against a 30s target.\n\nCaption quality: The opening line is appetizing and the call to action to visit fits walk-ins, with a friendly tone. But the misleading 2x1 mention risks customer disappointment, and the caption is somewhat generic.",
+    "grades": {
+      "spanishGrade": 5,
+      "plainWriteGrade": 5,
+      "goalGrade": 4,
+      "captionGrade": 3,
+      "dsGrade": 3,
+      "codeGrade": 5
+    },
+    "brief": {
+      "model": "claude-sonnet-5",
+      "id": "msg_011CgEuBF9XMsMr7SbGDerCo",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"shotList\":[{\"order\":1,\"description\":\"Graba el consomé hirviendo en la olla, acércate para que se vea el vapor y el color rojizo del caldo.\",\"durationSeconds\":4},{\"order\":2,\"description\":\"Filma cómo pones la tortilla en el comal con un poco del consomé para que se dore y quede roja.\",\"durationSeconds\":5},{\"order\":3,\"description\":\"Acércate mientras rellenas la tortilla con la carne de birria deshebrada, que se vea jugosa.\",\"durationSeconds\":4},{\"order\":4,\"description\":\"Graba cuando doblas el taco y lo pones a dorar en el comal, que se escuche el chisporroteo.\",\"durationSeconds\":4},{\"order\":5,\"description\":\"Toma el taco ya listo, acércalo a la cámara y parte uno por la mitad para que se vea el relleno.\",\"durationSeconds\":5},{\"order\":6,\"description\":\"Muestra el plato final con varios tacos de birria, el consomé a un lado y limón y cebolla para decorar.\",\"durationSeconds\":4},{\"order\":7,\"description\":\"Graba a alguien mojando el taco en el consomé antes de darle una mordida, de cerca.\",\"durationSeconds\":4},{\"order\":8,\"description\":\"Termina con una toma del letrero o la fachada de la taquería para que la gente sepa dónde ir.\",\"durationSeconds\":3}],\"editingNotes\":{\"cuts\":\"Corta rápido entre cada paso de la preparación, sin pausas largas, para que se sienta dinámico. Deja un poco más de tiempo en la toma final del plato y en la mordida.\",\"music\":\"Usa una canción de banda o corridos tumbados con buen ritmo, no muy lenta, que combine con el ambiente de taquería.\",\"textOverlays\":[{\"atSecond\":0,\"text\":\"Así preparamos nuestros tacos de birria 🔥\"},{\"atSecond\":15,\"text\":\"Ven por los tuyos hoy mismo\"},{\"atSecond\":22,\"text\":\"Taquería El Güero\"}]},\"caption\":\"Nada como un buen taco de **birria** recién hecho, bañadito en su consomé 🔥🌮 Ven a probarlo hoy mismo a Taquería El Güero y no te pierdas el **2x1 en tacos los martes** ¡Te esperamos!\",\"targetDurationSeconds\":30}"
+        }
+      ],
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1242,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 806,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "diagnostics": null,
+      "parsed_output": {
+        "shotList": [
+          {
+            "order": 1,
+            "description": "Graba el consomé hirviendo en la olla, acércate para que se vea el vapor y el color rojizo del caldo.",
+            "durationSeconds": 4
+          },
+          {
+            "order": 2,
+            "description": "Filma cómo pones la tortilla en el comal con un poco del consomé para que se dore y quede roja.",
+            "durationSeconds": 5
+          },
+          {
+            "order": 3,
+            "description": "Acércate mientras rellenas la tortilla con la carne de birria deshebrada, que se vea jugosa.",
+            "durationSeconds": 4
+          },
+          {
+            "order": 4,
+            "description": "Graba cuando doblas el taco y lo pones a dorar en el comal, que se escuche el chisporroteo.",
+            "durationSeconds": 4
+          },
+          {
+            "order": 5,
+            "description": "Toma el taco ya listo, acércalo a la cámara y parte uno por la mitad para que se vea el relleno.",
+            "durationSeconds": 5
+          },
+          {
+            "order": 6,
+            "description": "Muestra el plato final con varios tacos de birria, el consomé a un lado y limón y cebolla para decorar.",
+            "durationSeconds": 4
+          },
+          {
+            "order": 7,
+            "description": "Graba a alguien mojando el taco en el consomé antes de darle una mordida, de cerca.",
+            "durationSeconds": 4
+          },
+          {
+            "order": 8,
+            "description": "Termina con una toma del letrero o la fachada de la taquería para que la gente sepa dónde ir.",
+            "durationSeconds": 3
+          }
+        ],
+        "editingNotes": {
+          "cuts": "Corta rápido entre cada paso de la preparación, sin pausas largas, para que se sienta dinámico. Deja un poco más de tiempo en la toma final del plato y en la mordida.",
+          "music": "Usa una canción de banda o corridos tumbados con buen ritmo, no muy lenta, que combine con el ambiente de taquería.",
+          "textOverlays": [
+            {
+              "atSecond": 0,
+              "text": "Así preparamos nuestros tacos de birria 🔥"
+            },
+            {
+              "atSecond": 15,
+              "text": "Ven por los tuyos hoy mismo"
+            },
+            {
+              "atSecond": 22,
+              "text": "Taquería El Güero"
+            }
+          ]
+        },
+        "caption": "Nada como un buen taco de **birria** recién hecho, bañadito en su consomé 🔥🌮 Ven a probarlo hoy mismo a Taquería El Güero y no te pierdas el **2x1 en tacos los martes** ¡Te esperamos!",
+        "targetDurationSeconds": 30
+      }
+    }
+  }
+]

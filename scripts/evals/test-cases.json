@@ -1,0 +1,342 @@
+[
+  {
+    "name": "Taquería El Güero",
+    "category": "restaurant",
+    "goal": "more_walk_ins",
+    "cuisine": "mexicana",
+    "signatureDishes": [
+      "Tacos de birria",
+      "Tacos al pastor",
+      "Consomé de res"
+    ],
+    "specials": [
+      {
+        "label": "2x1 en tacos los martes",
+        "description": "Aplica solo en tacos de guisado"
+      },
+      {
+        "label": "Agua de jamaica gratis con tacos"
+      }
+    ]
+  },
+  {
+    "name": "Bar La Esquina",
+    "category": "restaurant",
+    "goal": "more_walk_ins",
+    "cuisine": "tapas y raciones",
+    "signatureDishes": [
+      "Croquetas caseras de jamón",
+      "Patatas bravas",
+      "Tortilla de patatas"
+    ],
+    "specials": [
+      {
+        "label": "Caña + tapa 2,50 €"
+      },
+      {
+        "label": "Vermú de grifo los domingos",
+        "description": "De 12 a 14 h"
+      }
+    ]
+  },
+  {
+    "name": "Pupusería Doña Chela",
+    "category": "restaurant",
+    "goal": "more_walk_ins",
+    "cuisine": "salvadoreña",
+    "signatureDishes": [
+      "Pupusa de queso con loroco",
+      "Pupusa revuelta",
+      "Curtido"
+    ],
+    "specials": []
+  },
+  {
+    "name": "Café Mirador",
+    "category": "restaurant",
+    "goal": "more_walk_ins",
+    "cuisine": "cafetería y brunch",
+    "signatureDishes": [
+      "Pancakes de maracuyá",
+      "Café de olla",
+      "Huevos pericos"
+    ],
+    "specials": [
+      {
+        "label": "Desayuno ejecutivo",
+        "description": "De 7 a 10 h entre semana"
+      }
+    ]
+  },
+  {
+    "name": "Pizzería Nápoles Express",
+    "category": "restaurant",
+    "goal": "more_takeout_orders",
+    "cuisine": "italiana",
+    "signatureDishes": [
+      "Margarita de búfala",
+      "Diavola",
+      "Calzone de salami"
+    ],
+    "specials": [
+      {
+        "label": "Pizza mediana + refresco 14 €",
+        "description": "Solo pedidos online o por teléfono"
+      },
+      {
+        "label": "Envío gratis desde 20 €"
+      }
+    ]
+  },
+  {
+    "name": "Cocina Lupita",
+    "category": "restaurant",
+    "goal": "more_takeout_orders",
+    "cuisine": "comida casera mexicana",
+    "signatureDishes": [
+      "Chilaquiles verdes",
+      "Mole de almendra y chocolate de metate con pollo de corral",
+      "Pozole rojo"
+    ],
+    "specials": [
+      {
+        "label": "Combo familiar para 4",
+        "description": "Incluye 1 litro de agua de horchata"
+      }
+    ]
+  },
+  {
+    "name": "Bodegón Pepe",
+    "category": "restaurant",
+    "goal": "more_takeout_orders",
+    "cuisine": "cocina casera asturiana",
+    "signatureDishes": [
+      "Fabada asturiana",
+      "Cachopo",
+      "Arroz con leche"
+    ],
+    "specials": []
+  },
+  {
+    "name": "Sazón Caribe",
+    "category": "restaurant",
+    "goal": "more_takeout_orders",
+    "cuisine": "dominicana",
+    "signatureDishes": [
+      "La bandera dominicana",
+      "Pollo guisado",
+      "Tostones con ajo"
+    ],
+    "specials": [
+      {
+        "label": "10% de descuento en pedidos para llevar los jueves"
+      }
+    ]
+  },
+  {
+    "name": "Restaurante El Olivo",
+    "category": "restaurant",
+    "goal": "more_reservations",
+    "cuisine": "mediterránea",
+    "signatureDishes": [
+      "Arroz negro con alioli",
+      "Pulpo a la gallega",
+      "Crema catalana"
+    ],
+    "specials": [
+      {
+        "label": "Menú degustación de temporada",
+        "description": "6 pases, maridaje opcional"
+      }
+    ]
+  },
+  {
+    "name": "Casa Ibérica Roble",
+    "category": "restaurant",
+    "goal": "more_reservations",
+    "cuisine": "carnes a la brasa",
+    "signatureDishes": [
+      "Chuletón de buey",
+      "Presa ibérica",
+      "Ensalada de burrata con tomate de Huerta",
+      "Croquetas de cocido",
+      "Morcilla de Burgos a la brasa",
+      "Pimientos del piquillo rellenos",
+      "Mollejas al ajillo",
+      "Tarta de queso vasca"
+    ],
+    "specials": [
+      {
+        "label": "Menú de grupo para 6 o más",
+        "description": "Reserva con 48 h de antelación"
+      }
+    ]
+  },
+  {
+    "name": "Mantel Blanco",
+    "category": "restaurant",
+    "goal": "more_reservations",
+    "cuisine": "peruana de autor",
+    "signatureDishes": [
+      "Ceviche de corvina",
+      "Lomo saltado de wagyu",
+      "Causa limeña",
+      "Tiradito de pulpo"
+    ],
+    "specials": [
+      {
+        "label": "Menú del chef los sábados",
+        "description": "Reserva con 48 h"
+      },
+      {
+        "label": "Pisco sour de bienvenida"
+      }
+    ]
+  },
+  {
+    "name": "Osteria Fratelli",
+    "category": "restaurant",
+    "goal": "more_reservations",
+    "cuisine": "italiana",
+    "signatureDishes": [
+      "Tagliatelle al ragù"
+    ],
+    "specials": [
+      {
+        "label": "Menú de San Valentín",
+        "description": "Solo con reserva"
+      }
+    ]
+  },
+  {
+    "name": "Sushi Kaze",
+    "category": "restaurant",
+    "goal": "more_brand_awareness",
+    "cuisine": "sushi y ramen",
+    "signatureDishes": [
+      "Ramen tonkotsu",
+      "Gyozas de cerdo",
+      "Nigiri de atún toro",
+      "Tamago"
+    ],
+    "specials": [
+      {
+        "label": "Happy hour sushi 18-20 h"
+      }
+    ]
+  },
+  {
+    "name": "Gelatería Norte",
+    "category": "restaurant",
+    "goal": "more_brand_awareness",
+    "cuisine": "heladería artesanal",
+    "signatureDishes": [
+      "Dulce de leche granizado"
+    ],
+    "specials": [
+      {
+        "label": "Cono doble al precio de uno",
+        "description": "Solo entre semana"
+      }
+    ]
+  },
+  {
+    "name": "Arepera La Guayabera",
+    "category": "restaurant",
+    "goal": "more_brand_awareness",
+    "cuisine": "venezolana",
+    "signatureDishes": [
+      "Reina pepiada",
+      "Pabellón criollo",
+      "Tequeños de queso"
+    ],
+    "specials": [
+      {
+        "label": "Tequeños x12 con guasacaca",
+        "description": "Los viernes"
+      },
+      {
+        "label": "Cachapa de jueves"
+      }
+    ]
+  },
+  {
+    "name": "Tacos Dorados Chuy",
+    "category": "restaurant",
+    "goal": "promote_new_menu_items",
+    "cuisine": "mexicana",
+    "signatureDishes": [
+      "Tacos dorados de papa",
+      "Quesadilla de flor de calabaza",
+      "Agua de tamarindo"
+    ],
+    "specials": [
+      {
+        "label": "Nuevo: Tlayuda de cecina con quesillo",
+        "description": "Lanzamiento esta semana, solo 30 piezas al día"
+      }
+    ]
+  },
+  {
+    "name": "Cevichería El Puerto",
+    "category": "restaurant",
+    "goal": "promote_new_menu_items",
+    "cuisine": "peruana",
+    "signatureDishes": [
+      "Ceviche mixto",
+      "Arroz con mariscos",
+      "Anticuchos de corazón"
+    ],
+    "specials": [
+      {
+        "label": "Ceviche de martes",
+        "description": "2x1 en ceviche clásico los martes"
+      }
+    ]
+  },
+  {
+    "name": "Churrería Dulce Ruta",
+    "category": "restaurant",
+    "goal": "promote_new_menu_items",
+    "cuisine": "churrería",
+    "signatureDishes": [
+      "Churros rellenos de cajeta",
+      "Churros clásicos",
+      "Chocolate espeso"
+    ],
+    "specials": [
+      {
+        "label": "Churros + chocolate 4,50 €"
+      }
+    ]
+  },
+  {
+    "name": "Bistró Cuatro Vientos",
+    "category": "restaurant",
+    "goal": "promote_new_menu_items",
+    "cuisine": "cocina de temporada chilena",
+    "signatureDishes": [
+      "Cordero patagónico al palo con salsa de yerba mate ahumada y ciruela",
+      "Locro de temporada",
+      "Pebre fresco"
+    ],
+    "specials": []
+  },
+  {
+    "name": "Chifa Lun Wa",
+    "category": "restaurant",
+    "goal": "more_brand_awareness",
+    "cuisine": "chifa",
+    "signatureDishes": [
+      "Arroz chaufa de mariscos",
+      "Wantán frito",
+      "Pollo saltado con mermelada de ají amarillo y cebollín caramelizado"
+    ],
+    "specials": [
+      {
+        "label": "Menú chifa para dos",
+        "description": "Entrada, plato de fondo y té de jazmín"
+      }
+    ]
+  }
+]

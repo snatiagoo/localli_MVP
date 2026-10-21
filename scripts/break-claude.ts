@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod.mjs";
 import { creativeBrief } from "@/lib/suggestions/generate-brief";
 
+
 function logError(label: string, err: unknown) {
     // function we will sue to see teh error properly
   if (err instanceof Anthropic.APIError) {

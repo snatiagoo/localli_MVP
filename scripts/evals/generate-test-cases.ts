@@ -6,29 +6,11 @@ config({ path: ".env.local" });
 import z from "zod";
 import { testCasesSystem, userMessage } from "./prompts";
 import { writeFile } from "fs/promises";
+import { testBusiness } from "./types";
 
 const client = new Anthropic();
 
-export const testBusiness = z.object({
-    name: z.string(),
-    category: z.enum(["restaurant"]),
-    goal: z.enum([ 
-        "more_walk_ins"
-       , "more_takeout_orders"
-       , "more_reservations"
-       , "more_brand_awareness"
-       , "promote_new_menu_items"]),
-    cuisine: z.string(),
-    signatureDishes: z.array(
-        z.string()
-    ),
-    specials: z.array(
-        z.object({
-            label: z.string(),
-            description: z.optional(z.string()),
-        })
-    )
-});
+
 
 const testOutput = z.object({
     testCases: z.array(testBusiness)
